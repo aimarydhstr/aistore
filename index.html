@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<title>Aistore</title>
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/css/bootstrap.min.css">
+	<style>
+		@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@700&family=Outfit:wght@400;500;600;700&display=swap');
+
+		a {
+			color: #333;
+			text-decoration: none;
+		}
+		a:hover {
+			transition: .5s all ease-in-out;
+			color: #cd0909;
+		}
+		body {
+			background: #fff;
+			line-height: 1.5em;
+			font: 400 16px Outfit;
+			color: #333;
+			overflow-x: hidden;
+		}
+		h1 {
+			font: 700 33px Comfortaa;
+		}
+		h3 {
+			font: 500 22px Outfit;
+		}
+		span {
+			color: #cd0909;
+		}
+		img {
+			object-fit: cover;
+			object-position: center;
+		}
+		.search {
+			width: 100%;
+			--bs-bg-opacity: .5;
+		}
+		.search svg {
+			width: 22px;
+			height: 22px;			
+			margin: 0 0 0 15px;
+		}
+		.search .form-control {
+			padding-left: 45px;
+			padding-top: 12px!important;
+			padding-bottom: 12px!important;
+		}
+		.icons svg {
+			height: 22px;
+			width: 22px;
+		}
+		.toggler {
+			display: none;
+		}
+		.produk img {
+			height: 160px;
+		}
+		.produk img:hover {
+			-webkit-filter: brightness(70%);
+			-webkit-transition: all 1s ease;
+			-moz-transition: all 1s ease;
+			-o-transition: all 1s ease;
+			-ms-transition: all 1s ease;
+			transition: all 1s ease;
+		}
+		.produk h2 {
+			font-size: 15px;
+			line-height: 1.5em;
+		}
+		.produk p {
+			font: 700 14px Outfit;
+		}
+		.produk .rate {
+			font-size: 13px;
+			padding: 0!important;
+			margin: 0!important;
+		}
+		.produk .rate svg {
+			width: 16px;
+			height: 16px;
+			margin-right: 3px;
+		}
+		.produk .diskon {
+			padding: 0!important;
+			margin: 10px 0!important;
+			font-size: 13px;
+		}
+		.produk .diskon .disc {
+			font-size: 12px;
+			padding: 4px!important;
+			width: 38px;
+			margin-right: 7px!important;
+		}
+		.cat-icon svg {
+			width: 30px;
+			height: 30px;
+		}
+		.carousel, .carousel-item, .carousel img {
+			height: auto;
+			max-height: 450px;
+		}
+		.kategori {
+			width: calc(142.3px - 20px);
+			margin: 0 10px!important;
+			--bs-bg-opacity: .4;
+			font-size: 15px;
+		}
+		.kategori:hover {
+			background: #cd0909!important;
+			--bs-bg-opacity: 1;
+			color: #fff!important;
+		}
+		.hori-scroll {
+			flex-wrap: nowrap!important;
+			overflow-x: auto!important;
+			cursor: grab;
+		}
+		.hori-scroll::-webkit-scrollbar {
+			display: none;
+		}
+		.lefto, .righto {
+			display: flex;
+		}
+		.promo {
+			width: 190.15px;
+		}
+		.produk .col-lg-2 {
+			min-width: 190px;
+		}
+		@media screen and (max-width: 992px) {
+			.banner {
+				width: 100%;
+				margin-top: 63px;
+				padding: 0;
+			}
+			.lefto, .righto {
+				display: block;
+			}
+			.banner img {
+				display: block;
+				border-radius: 0!important;
+				height: auto!important;
+			}
+			.search-wrap {
+				position: fixed;
+				top: 7px;
+				left: 7px;
+				right: 7px;
+				z-index: 10;
+				padding: 0!important;
+				background: #fff!important;
+			}
+			.navbar {
+				position: fixed;
+				box-shadow: 0 4px 8px 0 rgba(0,0,0,.15);
+				top: 0;
+				left: 0;
+				right: 0;
+				z-index: 10;
+			}
+			.toggler {
+				display: block;
+			}
+			.navbar header h1 {
+				padding-left: 12px!important;
+			}
+			.navbar .head {
+				padding: 0!important;
+			}
+			.search {
+				width: calc(100% - 14px);
+			}
+			.search .s-close {
+				right: 15px;
+			}
+			.search .form-control {
+				padding-right: 100px!important;
+			}
+			h1 {
+				margin-top: 5px;
+				font-size: 28px;
+			}
+			.icons svg {
+				height: 25px;
+				width: 25px;
+			}
+			.icon svg {
+				height: 30px;
+				width: 30px;
+			}
+			.s-icon {
+				padding-left: 8px!important;
+			}
+		}
+	</style>
+</head>
+<body>
+	
+<nav class="navbar px-lg-0 pt-lg-4 navbar-expand-lg bg-white">
+	<div class="container-lg px-lg-0">
+	  <div class="container-lg row p-0 m-0 justify-content-between align-items-center mx-auto">
+	  	<div class="col-lg-2 col-5 d-flex align-items-center head">
+		    <a class="toggler icon border-0 p-0" href="javascript::void(0)" data-bs-toggle="collapse" data-bs-target="#navi" aria-controls="navi" aria-expanded="false">
+		      <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+				  	<path stroke-linecap="round" stroke-linejoin="round" d="M3.75 6.75h16.5M3.75 12h16.5m-16.5 5.25H12" />
+					</svg>
+		    </a>
+		    <header><h1><a href="#"><span>ai</span>store</a></h1></header>
+	  	</div>
+	    <div class="collapse navbar-collapse col-lg-8 search-wrap" id="searches">
+		    <form class="bg-body-secondary search position-relative rounded d-flex align-items-center" role="search">
+		    	<label for="search" class="position-absolute">
+			    	<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="#777">
+			  			<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+					</svg>
+				</label>
+		        <input id="search" class="form-control bg-transparent border-0 rounded" type="search" placeholder="Search" aria-label="Search">
+		        <a class="p-0 s-close toggler border-0 position-absolute" href="javascript::void(0)" title="Search" data-bs-toggle="collapse" data-bs-target="#searches" aria-controls="searches" aria-expanded="false">
+		    		<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+					  <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+					</svg>
+		    	</a>
+		    </form>
+			</div>
+	    <div class="col icons d-flex justify-content-end">
+	    	<a class="px-2" href="#" title="Cart">
+	    		<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+				  <path stroke-linecap="round" stroke-linejoin="round" d="M2.25 3h1.386c.51 0 .955.343 1.087.835l.383 1.437M7.5 14.25a3 3 0 00-3 3h15.75m-12.75-3h11.218c1.121-2.3 2.1-4.684 2.924-7.138a60.114 60.114 0 00-16.536-1.84M7.5 14.25L5.106 5.272M6 20.25a.75.75 0 11-1.5 0 .75.75 0 011.5 0zm12.75 0a.75.75 0 11-1.5 0 .75.75 0 011.5 0z" />
+				</svg>
+	    	</a>
+	    	<a class="px-2" href="#" title="Wishlist">
+	    		<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+				  <path stroke-linecap="round" stroke-linejoin="round" d="M21 8.25c0-2.485-2.099-4.5-4.688-4.5-1.935 0-3.597 1.126-4.312 2.733-.715-1.607-2.377-2.733-4.313-2.733C5.1 3.75 3 5.765 3 8.25c0 7.22 9 12 9 12s9-4.78 9-12z" />
+				</svg>
+	    	</a>
+	    	<a class="px-lg-1 pl-lg-2 px-2" href="#" title="Pemberitahuan">
+	    		<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+					  <path stroke-linecap="round" stroke-linejoin="round" d="M14.857 17.082a23.848 23.848 0 005.454-1.31A8.967 8.967 0 0118 9.75v-.7V9A6 6 0 006 9v.75a8.967 8.967 0 01-2.312 6.022c1.733.64 3.56 1.085 5.455 1.31m5.714 0a24.255 24.255 0 01-5.714 0m5.714 0a3 3 0 11-5.714 0" />
+					</svg>
+	    	</a>
+	    	<a class="p-0 s-icon toggler border-0" href="javascript::void(0)" title="Search" data-bs-toggle="collapse" data-bs-target="#searches" aria-controls="searches" aria-expanded="false">
+	    		<svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
+		  			<path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+				</svg>
+	    	</a>
+	    </div>
+	    <div class="collapse navbar-collapse mx-0 mt-3 px-1" id="navi">
+	      <ul class="navbar-nav me-auto mb-2 mb-lg-0 w-100 justify-content-between">
+	      	<div class="lefto">
+		        <li class="nav-item">
+		          <a class="nav-link active" aria-current="page" href="#">Beranda</a>
+		        </li>
+		        <li class="nav-item">
+		          <a class="nav-link" href="#">Kategori</a>
+		        </li>
+		        <li class="nav-item">
+		          <a class="nav-link" href="#">Flashsale</a>
+		        </li>
+		        <li class="nav-item">
+		          <a class="nav-link" href="#">Kupon Promo</a>
+		        </li>
+		        <li class="nav-item">
+		          <a class="nav-link" href="#">Produk</a>
+		        </li>
+		      </div>
+	        <div class="righto">
+		        <li class="nav-item">
+		          <a class="nav-link" href="#">Register</a>
+		        </li>
+		        <li class="nav-item">
+		          <a class="nav-link" href="#">Login</a>
+		        </li>
+	        </div>
+	      </ul>
+	    </div>
+	  </div>
+	</div>
+</nav>
+
+<section class="banner container-lg">
+	<div class="row">
+		<div class="col-lg-12 rounded col-12">
+			<div id="carouselProduk" class="carousel carousel-dark slide" data-bs-ride="carousel">
+				<div class="carousel-indicators">
+			    <button type="button" data-bs-target="#carouselProduk" data-bs-slide-to="0" class="active" aria-current="true" aria-label="Slide 1"></button>
+			    <button type="button" data-bs-target="#carouselProduk" data-bs-slide-to="1" aria-label="Slide 2"></button>
+			    <button type="button" data-bs-target="#carouselProduk" data-bs-slide-to="2" aria-label="Slide 3"></button>
+			  </div>
+			  <div class="carousel-inner">
+			    <div class="carousel-item active">
+			      <img src="https://weblearnbd.net/wp/ninico/wp-content/uploads/2023/02/banner-1.jpg" class="d-block w-100 rounded" alt="...">
+			    </div>
+			    <div class="carousel-item">
+			      <img src="https://weblearnbd.net/wp/ninico/wp-content/uploads/2023/02/banner-2.jpg" class="d-block w-100 rounded" alt="...">
+			    </div>
+			    <div class="carousel-item">
+			      <img src="https://weblearnbd.net/wp/ninico/wp-content/uploads/2023/02/banner-3.jpg" class="d-block w-100 rounded" alt="...">
+			    </div>
+			  </div>
+			  <button class="carousel-control-prev" type="button" data-bs-target="#carouselProduk" data-bs-slide="prev">
+			    <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+			    <span class="visually-hidden">Previous</span>
+			  </button>
+			  <button class="carousel-control-next" type="button" data-bs-target="#carouselProduk" data-bs-slide="next">
+			    <span class="carousel-control-next-icon" aria-hidden="true"></span>
+			    <span class="visually-hidden">Next</span>
+			  </button>
+			</div>
+		</div>
+		
+	</div>
+</section>
+
+<section class="container-lg mt-3 mb-5">
+<div id="dragCat" class="row hori-scroll">
+		<a href="#" class="kategori rounded bg-body-secondary text-center">
+			<div class="cat-icon mx-auto rounded-circle d-flex align-items-center justify-content-center mt-4">
+				<svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg" id="headset" class="icon glyph" fill="currentColor"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M20,18h-.07A1,1,0,0,1,19,16.93l.36-5A7.38,7.38,0,0,0,6.6,6.35a7.31,7.31,0,0,0-2,5.56l.36,5a1,1,0,0,1-2,.14l-.36-5a9.38,9.38,0,1,1,18.72,0l-.36,5A1,1,0,0,1,20,18Z" fill="currentColor"></path><path d="M17,11H16a2,2,0,0,0-2,2v7a2,2,0,0,0,2,2h1a4,4,0,0,0,4-4V15A4,4,0,0,0,17,11Z" fill="currentColor"></path><path d="M8,11H7a4,4,0,0,0-4,4v3a4,4,0,0,0,4,4H8a2,2,0,0,0,2-2V13A2,2,0,0,0,8,11Z" fill="currentColor"></path></g></svg>
+			</div>
+			<p class="mt-3">Aksesoris</p>
+		</a>
+		<a href="#" class="kategori rounded bg-body-secondary text-center">
+			<div class="cat-icon mx-auto rounded-circle d-flex align-items-center justify-content-center mt-4">
+				<svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" fill="currentColor"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><g><path fill="currentColor" d="M426.438,0H85.578C70.484,0,58.172,12.344,58.172,27.406v457.188c0,15.063,12.313,27.406,27.406,27.406 h340.859c15.063,0,27.391-12.344,27.391-27.406V27.406C453.828,12.344,441.5,0,426.438,0z M256.016,25.281 c4.063,0,7.391,3.313,7.391,7.406s-3.328,7.406-7.391,7.406c-4.094,0-7.422-3.313-7.422-7.406S251.922,25.281,256.016,25.281z M256.016,495.609c-7.031,0-12.719-5.703-12.719-12.719s5.688-12.703,12.719-12.703c7,0,12.688,5.688,12.688,12.703 S263.016,495.609,256.016,495.609z M426.438,453.781L85.578,453.75V58.219h340.859V453.781z"></path> </g> </g></svg>
+			</div>
+			<p class="mt-3">Handphone</p>
+		</a>
+		<a href="#" class="kategori rounded bg-body-secondary text-center">
+			<div class="cat-icon mx-auto rounded-circle d-flex align-items-center justify-content-center mt-4">
+				<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path fill-rule="evenodd" clip-rule="evenodd" d="M7.342 4.985c.422-.724.633-1.085.927-1.348a2.5 2.5 0 0 1 .898-.516C9.542 3 9.96 3 10.797 3h2.405c.838 0 1.256 0 1.631.121a2.5 2.5 0 0 1 .898.516c.294.263.505.624.927 1.348L17.25 6H18c1.4 0 2.1 0 2.635.272a2.5 2.5 0 0 1 1.092 1.093C22 7.9 22 8.6 22 10v6c0 1.4 0 2.1-.273 2.635a2.5 2.5 0 0 1-1.092 1.092C20.1 20 19.4 20 18 20H6c-1.4 0-2.1 0-2.635-.273a2.5 2.5 0 0 1-1.093-1.092C2 18.1 2 17.4 2 16v-6c0-1.4 0-2.1.272-2.635a2.5 2.5 0 0 1 1.093-1.093C3.9 6 4.6 6 6 6h.75l.592-1.015zM12 17.05a4.75 4.75 0 1 0 0-9.5 4.75 4.75 0 0 0 0 9.5zm2.7-4.75a2.7 2.7 0 1 1-5.4 0 2.7 2.7 0 0 1 5.4 0z" fill="currentColor"></path></g></svg>
+			</div>
+			<p class="mt-3">Kamera</p>
+		</a>
+		<a href="#" class="kategori rounded bg-body-secondary text-center">
+			<div class="cat-icon mx-auto rounded-circle d-flex align-items-center justify-content-center mt-4">
+				<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M2 6C2 4.34315 3.34315 3 5 3H19C20.6569 3 22 4.34315 22 6V15C22 16.6569 20.6569 18 19 18H13V19H15C15.5523 19 16 19.4477 16 20C16 20.5523 15.5523 21 15 21H9C8.44772 21 8 20.5523 8 20C8 19.4477 8.44772 19 9 19H11V18H5C3.34315 18 2 16.6569 2 15V6ZM5 5C4.44772 5 4 5.44772 4 6V15C4 15.5523 4.44772 16 5 16H19C19.5523 16 20 15.5523 20 15V6C20 5.44772 19.5523 5 19 5H5Z" fill="currentColor"></path> </g></svg>
+			</div>
+			<p class="mt-3">Komputer</p>
+		</a>
+		<a href="#" class="kategori rounded bg-body-secondary text-center">
+			<div class="cat-icon mx-auto rounded-circle d-flex align-items-center justify-content-center mt-4">
+				<svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" fill="currentColor"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><g><path fill="currentColor" d="M510.163,392.022l-45.59-57.326V93.611c0-11.662-9.458-21.12-21.12-21.12H68.546 c-11.662,0-21.115,9.458-21.115,21.12v241.085L1.837,392.022C0.648,393.517,0,395.367,0,397.287v25.373 c0,9.311,7.542,16.849,16.849,16.849h478.302c9.307,0,16.849-7.538,16.849-16.849v-25.373 C512,395.367,511.356,393.517,510.163,392.022z M77.226,102.291h357.548v202.606H77.226V102.291z M304.121,419.47h-96.242v-25.478 h96.242V419.47z"></path> </g> </g></svg>
+			</div>
+			<p class="mt-3">Laptop</p>
+		</a>
+		<a href="#" class="kategori rounded bg-body-secondary text-center">
+			<div class="cat-icon mx-auto rounded-circle d-flex align-items-center justify-content-center mt-4">
+				<svg version="1.1" id="_x32_" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 512 512" xml:space="preserve" fill="currentColor"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><g><path fill="currentColor" d="M58.75,375.563c0,11.125,9.016,20.141,20.125,20.141C90,395.703,99,386.688,99,375.563v-11.5H58.75V375.563z"></path> <path fill="currentColor" d="M413,375.563c0,11.125,9,20.141,20.125,20.141c11.109,0,20.125-9.016,20.125-20.141v-11.5H413V375.563z"></path> <path fill="currentColor" d="M256,149.484c-45.844,0-83,37.156-83,83s37.156,83,83,83s83-37.156,83-83S301.844,149.484,256,149.484z M256,284.219c-28.563,0-51.719-23.156-51.719-51.734c0-28.563,23.156-51.719,51.719-51.719s51.719,23.156,51.719,51.719 C307.719,261.063,284.563,284.219,256,284.219z"></path> <path fill="currentColor" d="M473.813,146.438c0,0,12.313,2.266-10.766-3.719c-51.25-13.313-131.016-26.422-207.047-26.422 s-155.797,13.109-207.047,26.422c-23.094,5.984-10.766,3.719-10.766,3.719C15.328,154.328,0,175.844,0,200.016v103.313 c0,25.047,20.313,45.344,45.344,45.344H256h210.641c25.047,0,45.359-20.297,45.359-45.344V200.016 C512,175.844,496.672,154.328,473.813,146.438z M117.781,279.406H58.875c-4.719,0-8.547-3.828-8.547-8.547 c0-4.734,3.828-8.563,8.547-8.563h58.906c4.719,0,8.547,3.828,8.547,8.563C126.328,275.578,122.5,279.406,117.781,279.406z M117.781,225.25H58.875c-4.719,0-8.547-3.828-8.547-8.547s3.828-8.547,8.547-8.547h58.906c4.719,0,8.547,3.828,8.547,8.547 S122.5,225.25,117.781,225.25z M256,331.484c-54.594,0-99-44.406-99-99c0-54.578,44.406-99,99-99s99,44.422,99,99 C355,287.078,310.594,331.484,256,331.484z M432.328,222.156c-9.938,0-18-8.063-18-18s8.063-18,18-18c9.953,0,18,8.063,18,18 S442.281,222.156,432.328,222.156z"></path> </g> </g></svg>
+			</div>
+			<p class="mt-3">LCD Projector</p>
+		</a>
+		<a href="#" class="kategori rounded bg-body-secondary text-center">
+			<div class="cat-icon mx-auto rounded-circle d-flex align-items-center justify-content-center mt-4">
+				<svg fill="currentColor" viewBox="0 0 32 32" version="1.1" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"><path d="M3.262 24.248c-2.374-0.681-2.767-2.084-1.69-2.899 0.776-0.51 1.668-0.954 2.612-1.288l0.087-0.027 7.017-2.516v2.89l-5.030 1.839c-0.881 0.339-1.031 0.79-0.299 1.032 0.365 0.093 0.783 0.147 1.214 0.147 0.615 0 1.204-0.109 1.749-0.308l-0.035 0.011 2.422-0.882v2.592c-0.15 0.037-0.32 0.055-0.487 0.091-0.775 0.136-1.667 0.214-2.577 0.214-1.778 0-3.486-0.298-5.078-0.846l0.11 0.033zM18.049 24.544l7.868-2.843c0.893-0.322 1.032-0.781 0.307-1.022-0.363-0.089-0.779-0.14-1.208-0.14-0.622 0-1.22 0.108-1.774 0.305l0.037-0.011-5.255 1.874v-2.983l0.3-0.106c1.050-0.349 2.284-0.62 3.557-0.761l0.083-0.008c0.468-0.050 1.010-0.078 1.559-0.078 1.877 0 3.677 0.331 5.343 0.939l-0.108-0.035c2.309 0.751 2.549 1.839 1.969 2.589-0.559 0.557-1.235 0.998-1.988 1.282l-0.039 0.013-10.677 3.883v-2.869zM12.231 4.248v21.927l4.892 1.576v-18.39c0-0.862 0.38-1.438 0.992-1.238 0.795 0.225 0.95 1.017 0.95 1.881v7.342c3.050 1.491 5.451-0.003 5.451-3.939 0-4.045-1.407-5.842-5.546-7.282-1.785-0.648-4.040-1.294-6.347-1.805l-0.389-0.072z"></path> </g></svg>
+			</div>
+			<p class="mt-3">Playstation</p>
+		</a>
+		<a href="#" class="kategori rounded bg-body-secondary text-center">
+			<div class="cat-icon mx-auto rounded-circle d-flex align-items-center justify-content-center mt-4">
+				<svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path fill-rule="evenodd" clip-rule="evenodd" d="M15.2929 3.29289C15.6834 2.90237 16.3166 2.90237 16.7071 3.29289L21.4142 8L16.7071 12.7071C16.3166 13.0976 15.6834 13.0976 15.2929 12.7071C14.9024 12.3166 14.9024 11.6834 15.2929 11.2929L17.5858 9H10C7.23858 9 5 11.2386 5 14C5 16.7614 7.23857 19 10 19H15.8462C16.3984 19 16.8462 19.4477 16.8462 20C16.8462 20.5523 16.3984 21 15.8462 21H10C6.134 21 3 17.866 3 14C3 10.134 6.13401 7 10 7H17.5858L15.2929 4.70711C14.9024 4.31658 14.9024 3.68342 15.2929 3.29289Z" fill="currentColor"></path> </g></svg>
+			</div>
+			<p class="mt-3">Lainnya</p>
+		</a>
+</div>
+</section>
+
+<section class="container-lg produk my-5">
+<div class="d-flex justify-content-between">
+	<h3 class="my-3">Promo <span>Flashsale</span></h3>
+	<div id="timeFlash" class="d-flex align-items-center">
+		<div id="hour" class="py-1 px-2 mx-1 bg-body-secondary text-danger rounded"></div> : 
+		<div id="minute" class="py-1 px-2 mx-1 bg-body-secondary text-danger rounded"></div> : 
+		<div id="second" class="py-1 px-2 mx-1 bg-body-secondary text-danger rounded"></div>
+	</div>
+</div>
+<div id="dragFlash" class="row hori-scroll">
+		<div class="promo">
+			<div class="card rounded border-0">
+				<a href="#">
+					<img class="rounded" src="https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/51+AvgQs50L.jpg" alt="Playstation 4 Pro Limited Edition" width="100%" title="Playstation 4 Pro Limited Edition">
+				</a>
+				<div class="py-3">
+					<h2><a href="#" title="Playstation 4 Pro Limited Edition">Playstation 4 Pro Limited Edition</a></h2>
+					<p class="p-0 m-0">Rp. 2.500.000</p>
+					<div class="diskon d-flex align-items-center">
+						<div class="disc text-center text-bg-danger rounded">50%</div>
+						<div class="p-0 m-0">
+							<strike>Rp. 5.000.000</strike>
+						</div>
+					</div>
+					<div class="rate d-flex align-items-center">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="#ff6500" viewBox="0 0 24 24">
+						  <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+						</svg> 4.9 | Terjual 1000+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="promo">
+			<div class="card rounded border-0">
+				<a href="#">
+					<img class="rounded" src="https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/31YH5wvKCfL.jpg" alt="Macbook Air M2 Pro 8GB/1TB" width="100%" title="Macbook Air M2 Pro 8GB/1TB">
+				</a>
+				<div class="py-3">
+					<h2><a href="#" title="Macbook Air M2 Pro 8GB/1TB">Macbook Air M2 Pro 8GB/1TB</a></h2>
+					<p class="p-0 m-0">Rp. 9.600.000</p>
+					<div class="diskon d-flex align-items-center">
+						<div class="disc text-center text-bg-danger rounded">20%</div>
+						<div class="p-0 m-0">
+							<strike>Rp. 12.000.000</strike>
+						</div>
+					</div>
+					<div class="rate d-flex align-items-center">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="#ff6500" viewBox="0 0 24 24">
+						  <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+						</svg> 4.9 | Terjual 1000+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="promo">
+			<div class="card rounded border-0">
+				<a href="#">
+					<img class="rounded" src="https://image.jpnn.com/resize/1200x800-80/arsip/watermark/2021/02/19/ilustrasi-asus-rog-4-foto-pocket-lint-60.jpg" alt="HP ASUS ROG 8GB/128GB" width="100%" title="HP ASUS ROG 8GB/128GB">
+				</a>
+				<div class="py-3">
+					<h2><a href="#" title="HP ASUS ROG 8GB/128GB">HP ASUS ROG 8GB/128GB</a></h2>
+					<p class="p-0 m-0">Rp. 7.650.000</p>
+					<div class="diskon d-flex align-items-center">
+						<div class="disc text-center text-bg-danger rounded">10%</div>
+						<div class="p-0 m-0">
+							<strike>Rp. 8.500.000</strike>
+						</div>
+					</div>
+					<div class="rate d-flex align-items-center">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="#ff6500" viewBox="0 0 24 24">
+						  <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+						</svg> 4.9 | Terjual 1000+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="promo">
+			<div class="card rounded border-0">
+				<a href="#">
+					<img class="rounded" src="https://res.cloudinary.com/grover/image/upload/f_webp,q_auto/b_white,c_pad,dpr_2.0,h_500,w_520/f_auto,q_auto/v1601557078/dgv4n1qqubuxcmppevwa.png" alt="Laptop ASUS ROG 16GB/2TB" width="100%" title="Laptop ASUS ROG 16GB/2TB">
+				</a>
+				<div class="py-3">
+					<h2><a href="#" title="Laptop ASUS ROG 16GB/2TB">Laptop ASUS ROG 16GB/2TB</a></h2>
+					<p class="p-0 m-0">Rp. 17.100.000</p>
+					<div class="diskon d-flex align-items-center">
+						<div class="disc text-center text-bg-danger rounded">10%</div>
+						<div class="p-0 m-0">
+							<strike>Rp. 19.000.000</strike>
+						</div>
+					</div>
+					<div class="rate d-flex align-items-center">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="#ff6500" viewBox="0 0 24 24">
+						  <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+						</svg> 4.9 | Terjual 1000+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="promo">
+			<div class="card rounded border-0">
+				<a href="#">
+					<img class="rounded" src="https://nypost.com/wp-content/uploads/sites/2/2022/03/71EWRyqzw0L._AC_SL1500_.jpg?quality=90&strip=all" alt="Camera DLSR Canon Original" width="100%" title="Camera DLSR Canon Original">
+				</a>
+				<div class="py-3">
+					<h2><a href="#" title="Camera DLSR Canon Original">Camera DLSR Canon Original</a></h2>
+					<p class="p-0 m-0">Rp. 2.400.000</p>
+					<div class="diskon d-flex align-items-center">
+						<div class="disc text-center text-bg-danger rounded">60%</div>
+						<div class="p-0 m-0">
+							<strike>Rp. 6.000.000</strike>
+						</div>
+					</div>
+					<div class="rate d-flex align-items-center">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="#ff6500" viewBox="0 0 24 24">
+						  <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+						</svg> 4.9 | Terjual 1000+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="promo">
+			<div class="card rounded border-0">
+				<a href="#">
+					<img class="rounded" src="https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/71k+Zrz-Y0L.jpg" alt="Processor Intel Core I9 Gen 13" width="100%" title="Processor Intel Core I9 Gen 13">
+				</a>
+				<div class="py-3">
+					<h2><a href="#" title="Processor Intel Core I9 Gen 13">Processor Intel Core I9 Gen 13</a></h2>
+					<p class="p-0 m-0">Rp. 10.500.000</p>
+					<div class="diskon d-flex align-items-center">
+						<div class="disc text-center text-bg-danger rounded">30%</div>
+						<div class="p-0 m-0">
+							<strike>Rp. 15.000.000</strike>
+						</div>
+					</div>
+					<div class="rate d-flex align-items-center">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="#ff6500" viewBox="0 0 24 24">
+						  <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+						</svg> 4.9 | Terjual 1000+
+					</div>
+				</div>
+			</div>
+		</div>
+</div>
+</section>
+
+<section class="container-lg produk my-5">
+<h3 class="my-3 mb-0">Produk <span>Terbaru</span></h3>
+<main class="row justify-content-between">
+		<div class="col-lg-2 col-md-3 col-sm-4 mt-4 mb-3 col-6">
+			<div class="card rounded border-0">
+				<a href="#">
+					<img class="rounded" src="https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/51+AvgQs50L.jpg" alt="Playstation 4 Pro Limited Edition" width="100%" title="Playstation 4 Pro Limited Edition">
+				</a>
+				<div class="py-3">
+					<h2><a href="#" title="Playstation 4 Pro Limited Edition">Playstation 4 Pro Limited Edition</a></h2>
+					<p class="p-0 m-0">Rp. 2.500.000</p>
+					<div class="diskon d-flex align-items-center">
+						<div class="disc text-center text-bg-danger rounded">50%</div>
+						<div class="p-0 m-0">
+							<strike>Rp. 5.000.000</strike>
+						</div>
+					</div>
+					<div class="rate d-flex align-items-center">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="#ff6500" viewBox="0 0 24 24">
+						  <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+						</svg> 4.9 | Terjual 1000+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-2 col-md-3 col-sm-4 mt-4 mb-3 col-6">
+			<div class="card rounded border-0">
+				<a href="#">
+					<img class="rounded" src="https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/31YH5wvKCfL.jpg" alt="Macbook Air M2 Pro 8GB/1TB" width="100%" title="Macbook Air M2 Pro 8GB/1TB">
+				</a>
+				<div class="py-3">
+					<h2><a href="#" title="Macbook Air M2 Pro 8GB/1TB">Macbook Air M2 Pro 8GB/1TB</a></h2>
+					<p class="p-0 m-0">Rp. 9.600.000</p>
+					<div class="diskon d-flex align-items-center">
+						<div class="disc text-center text-bg-danger rounded">20%</div>
+						<div class="p-0 m-0">
+							<strike>Rp. 12.000.000</strike>
+						</div>
+					</div>
+					<div class="rate d-flex align-items-center">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="#ff6500" viewBox="0 0 24 24">
+						  <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+						</svg> 4.9 | Terjual 1000+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-2 col-md-3 col-sm-4 mt-4 mb-3 col-6">
+			<div class="card rounded border-0">
+				<a href="#">
+					<img class="rounded" src="https://image.jpnn.com/resize/1200x800-80/arsip/watermark/2021/02/19/ilustrasi-asus-rog-4-foto-pocket-lint-60.jpg" alt="HP ASUS ROG 8GB/128GB" width="100%" title="HP ASUS ROG 8GB/128GB">
+				</a>
+				<div class="py-3">
+					<h2><a href="#" title="HP ASUS ROG 8GB/128GB">HP ASUS ROG 8GB/128GB</a></h2>
+					<p class="p-0 m-0">Rp. 7.650.000</p>
+					<div class="diskon d-flex align-items-center">
+						<div class="disc text-center text-bg-danger rounded">10%</div>
+						<div class="p-0 m-0">
+							<strike>Rp. 8.500.000</strike>
+						</div>
+					</div>
+					<div class="rate d-flex align-items-center">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="#ff6500" viewBox="0 0 24 24">
+						  <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+						</svg> 4.9 | Terjual 1000+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-2 col-md-3 col-sm-4 mt-4 mb-3 col-6">
+			<div class="card rounded border-0">
+				<a href="#">
+					<img class="rounded" src="https://res.cloudinary.com/grover/image/upload/f_webp,q_auto/b_white,c_pad,dpr_2.0,h_500,w_520/f_auto,q_auto/v1601557078/dgv4n1qqubuxcmppevwa.png" alt="Laptop ASUS ROG 16GB/2TB" width="100%" title="Laptop ASUS ROG 16GB/2TB">
+				</a>
+				<div class="py-3">
+					<h2><a href="#" title="Laptop ASUS ROG 16GB/2TB">Laptop ASUS ROG 16GB/2TB</a></h2>
+					<p class="p-0 m-0">Rp. 17.100.000</p>
+					<div class="diskon d-flex align-items-center">
+						<div class="disc text-center text-bg-danger rounded">10%</div>
+						<div class="p-0 m-0">
+							<strike>Rp. 19.000.000</strike>
+						</div>
+					</div>
+					<div class="rate d-flex align-items-center">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="#ff6500" viewBox="0 0 24 24">
+						  <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+						</svg> 4.9 | Terjual 1000+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-2 col-md-3 col-sm-4 mt-4 mb-3 col-6">
+			<div class="card rounded border-0">
+				<a href="#">
+					<img class="rounded" src="https://nypost.com/wp-content/uploads/sites/2/2022/03/71EWRyqzw0L._AC_SL1500_.jpg?quality=90&strip=all" alt="Camera DLSR Canon Original" width="100%" title="Camera DLSR Canon Original">
+				</a>
+				<div class="py-3">
+					<h2><a href="#" title="Camera DLSR Canon Original">Camera DLSR Canon Original</a></h2>
+					<p class="p-0 m-0">Rp. 2.400.000</p>
+					<div class="diskon d-flex align-items-center">
+						<div class="disc text-center text-bg-danger rounded">60%</div>
+						<div class="p-0 m-0">
+							<strike>Rp. 6.000.000</strike>
+						</div>
+					</div>
+					<div class="rate d-flex align-items-center">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="#ff6500" viewBox="0 0 24 24">
+						  <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+						</svg> 4.9 | Terjual 1000+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-2 col-md-3 col-sm-4 mt-4 mb-3 col-6">
+			<div class="card rounded border-0">
+				<a href="#">
+					<img class="rounded" src="https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/71k+Zrz-Y0L.jpg" alt="Processor Intel Core I9 Gen 13" width="100%" title="Processor Intel Core I9 Gen 13">
+				</a>
+				<div class="py-3">
+					<h2><a href="#" title="Processor Intel Core I9 Gen 13">Processor Intel Core I9 Gen 13</a></h2>
+					<p class="p-0 m-0">Rp. 10.500.000</p>
+					<div class="diskon d-flex align-items-center">
+						<div class="disc text-center text-bg-danger rounded">30%</div>
+						<div class="p-0 m-0">
+							<strike>Rp. 15.000.000</strike>
+						</div>
+					</div>
+					<div class="rate d-flex align-items-center">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="#ff6500" viewBox="0 0 24 24">
+						  <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+						</svg> 4.9 | Terjual 1000+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-2 col-md-3 col-sm-4 mt-4 mb-3 col-6">
+			<div class="card rounded border-0">
+				<a href="#">
+					<img class="rounded" src="https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/51+AvgQs50L.jpg" alt="Playstation 4 Pro Limited Edition" width="100%" title="Playstation 4 Pro Limited Edition">
+				</a>
+				<div class="py-3">
+					<h2><a href="#" title="Playstation 4 Pro Limited Edition">Playstation 4 Pro Limited Edition</a></h2>
+					<p class="p-0 m-0">Rp. 2.500.000</p>
+					<div class="diskon d-flex align-items-center">
+						<div class="disc text-center text-bg-danger rounded">50%</div>
+						<div class="p-0 m-0">
+							<strike>Rp. 5.000.000</strike>
+						</div>
+					</div>
+					<div class="rate d-flex align-items-center">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="#ff6500" viewBox="0 0 24 24">
+						  <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+						</svg> 4.9 | Terjual 1000+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-2 col-md-3 col-sm-4 mt-4 mb-3 col-6">
+			<div class="card rounded border-0">
+				<a href="#">
+					<img class="rounded" src="https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/31YH5wvKCfL.jpg" alt="Macbook Air M2 Pro 8GB/1TB" width="100%" title="Macbook Air M2 Pro 8GB/1TB">
+				</a>
+				<div class="py-3">
+					<h2><a href="#" title="Macbook Air M2 Pro 8GB/1TB">Macbook Air M2 Pro 8GB/1TB</a></h2>
+					<p class="p-0 m-0">Rp. 9.600.000</p>
+					<div class="diskon d-flex align-items-center">
+						<div class="disc text-center text-bg-danger rounded">20%</div>
+						<div class="p-0 m-0">
+							<strike>Rp. 12.000.000</strike>
+						</div>
+					</div>
+					<div class="rate d-flex align-items-center">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="#ff6500" viewBox="0 0 24 24">
+						  <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+						</svg> 4.9 | Terjual 1000+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-2 col-md-3 col-sm-4 mt-4 mb-3 col-6">
+			<div class="card rounded border-0">
+				<a href="#">
+					<img class="rounded" src="https://image.jpnn.com/resize/1200x800-80/arsip/watermark/2021/02/19/ilustrasi-asus-rog-4-foto-pocket-lint-60.jpg" alt="HP ASUS ROG 8GB/128GB" width="100%" title="HP ASUS ROG 8GB/128GB">
+				</a>
+				<div class="py-3">
+					<h2><a href="#" title="HP ASUS ROG 8GB/128GB">HP ASUS ROG 8GB/128GB</a></h2>
+					<p class="p-0 m-0">Rp. 7.650.000</p>
+					<div class="diskon d-flex align-items-center">
+						<div class="disc text-center text-bg-danger rounded">10%</div>
+						<div class="p-0 m-0">
+							<strike>Rp. 8.500.000</strike>
+						</div>
+					</div>
+					<div class="rate d-flex align-items-center">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="#ff6500" viewBox="0 0 24 24">
+						  <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+						</svg> 4.9 | Terjual 1000+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-2 col-md-3 col-sm-4 mt-4 mb-3 col-6">
+			<div class="card rounded border-0">
+				<a href="#">
+					<img class="rounded" src="https://res.cloudinary.com/grover/image/upload/f_webp,q_auto/b_white,c_pad,dpr_2.0,h_500,w_520/f_auto,q_auto/v1601557078/dgv4n1qqubuxcmppevwa.png" alt="Laptop ASUS ROG 16GB/2TB" width="100%" title="Laptop ASUS ROG 16GB/2TB">
+				</a>
+				<div class="py-3">
+					<h2><a href="#" title="Laptop ASUS ROG 16GB/2TB">Laptop ASUS ROG 16GB/2TB</a></h2>
+					<p class="p-0 m-0">Rp. 17.100.000</p>
+					<div class="diskon d-flex align-items-center">
+						<div class="disc text-center text-bg-danger rounded">10%</div>
+						<div class="p-0 m-0">
+							<strike>Rp. 19.000.000</strike>
+						</div>
+					</div>
+					<div class="rate d-flex align-items-center">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="#ff6500" viewBox="0 0 24 24">
+						  <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+						</svg> 4.9 | Terjual 1000+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-2 col-md-3 col-sm-4 mt-4 mb-3 col-6">
+			<div class="card rounded border-0">
+				<a href="#">
+					<img class="rounded" src="https://nypost.com/wp-content/uploads/sites/2/2022/03/71EWRyqzw0L._AC_SL1500_.jpg?quality=90&strip=all" alt="Camera DLSR Canon Original" width="100%" title="Camera DLSR Canon Original">
+				</a>
+				<div class="py-3">
+					<h2><a href="#" title="Camera DLSR Canon Original">Camera DLSR Canon Original</a></h2>
+					<p class="p-0 m-0">Rp. 2.400.000</p>
+					<div class="diskon d-flex align-items-center">
+						<div class="disc text-center text-bg-danger rounded">60%</div>
+						<div class="p-0 m-0">
+							<strike>Rp. 6.000.000</strike>
+						</div>
+					</div>
+					<div class="rate d-flex align-items-center">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="#ff6500" viewBox="0 0 24 24">
+						  <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+						</svg> 4.9 | Terjual 1000+
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="col-lg-2 col-md-3 col-sm-4 mt-4 mb-3 col-6">
+			<div class="card rounded border-0">
+				<a href="#">
+					<img class="rounded" src="https://m.media-amazon.com/images/W/IMAGERENDERING_521856-T1/images/I/71k+Zrz-Y0L.jpg" alt="Processor Intel Core I9 Gen 13" width="100%" title="Processor Intel Core I9 Gen 13">
+				</a>
+				<div class="py-3">
+					<h2><a href="#" title="Processor Intel Core I9 Gen 13">Processor Intel Core I9 Gen 13</a></h2>
+					<p class="p-0 m-0">Rp. 10.500.000</p>
+					<div class="diskon d-flex align-items-center">
+						<div class="disc text-center text-bg-danger rounded">30%</div>
+						<div class="p-0 m-0">
+							<strike>Rp. 15.000.000</strike>
+						</div>
+					</div>
+					<div class="rate d-flex align-items-center">
+						<svg xmlns="http://www.w3.org/2000/svg" fill="#ff6500" viewBox="0 0 24 24">
+						  <path stroke-linecap="round" stroke-linejoin="round" d="M11.48 3.499a.562.562 0 011.04 0l2.125 5.111a.563.563 0 00.475.345l5.518.442c.499.04.701.663.321.988l-4.204 3.602a.563.563 0 00-.182.557l1.285 5.385a.562.562 0 01-.84.61l-4.725-2.885a.563.563 0 00-.586 0L6.982 20.54a.562.562 0 01-.84-.61l1.285-5.386a.562.562 0 00-.182-.557l-4.204-3.602a.563.563 0 01.321-.988l5.518-.442a.563.563 0 00.475-.345L11.48 3.5z" />
+						</svg> 4.9 | Terjual 1000+
+					</div>
+				</div>
+			</div>
+		</div>
+</main>
+</section>
+
+<script type="text/javascript">
+
+const hour = document.querySelector('#hour');
+const minute = document.querySelector('#minute');
+const second = document.querySelector('#second');
+
+let countDownDate = new Date(Date.now() + 2 * (60 * 60 * 1000)).getTime();
+
+let x = setInterval(function() {
+  let now = new Date().getTime();
+  let distance = countDownDate - now;
+  let hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+  let minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+  let seconds = Math.floor((distance % (1000 * 60)) / 1000);
+
+  if(hours < 10) hours = "0"+hours;
+
+  if(minutes < 10) minutes = "0"+minutes;
+  
+  if(seconds < 10) seconds = "0"+seconds;
+
+  hour.innerHTML = hours;
+  minute.innerHTML = minutes;
+  second.innerHTML = seconds;
+
+  if (distance < 0) {
+    clearInterval(x);
+    timeFlash.innerHTML = "EXPIRED";
+  }
+}, 1000);
+
+
+const dragCat = document.querySelector('#dragCat');
+const dragFlash = document.querySelector('#dragFlash');
+let mouseDown = false;
+let startX, scrollLeft;
+
+let startDragCat = function (e) {
+   mouseDown = true;
+   startX = e.pageX - dragCat.offsetLeft;
+   scrollLeft = dragCat.scrollLeft;
+};
+let startDragFlash = function (e) {
+   mouseDown = true;
+   startX = e.pageX - dragFlash.offsetLeft;
+   scrollLeft = dragFlash.scrollLeft;
+};
+
+let stopDragCat = function (event) {
+   mouseDown = false;
+};
+
+let stopDragFlash = function (event) {
+   mouseDown = false;
+};
+
+dragCat.addEventListener('mousemove', (e) => {
+   e.preventDefault();
+   
+   if(!mouseDown) return;
+
+   const x = e.pageX - dragCat.offsetLeft;
+   const scroll = x - startX;
+   dragCat.scrollLeft = scrollLeft - scroll;
+});
+
+dragFlash.addEventListener('mousemove', (e) => {
+   e.preventDefault();
+   
+   if(!mouseDown) return;
+
+   const x = e.pageX - dragFlash.offsetLeft;
+   const scroll = x - startX;
+   dragFlash.scrollLeft = scrollLeft - scroll;
+});
+
+dragCat.addEventListener('mousedown', startDragCat, false);
+dragCat.addEventListener('mouseup', stopDragCat, false);
+dragCat.addEventListener('mouseleave', stopDragCat, false);
+
+dragFlash.addEventListener('mousedown', startDragFlash, false);
+dragFlash.addEventListener('mouseup', stopDragFlash, false);
+dragFlash.addEventListener('mouseleave', stopDragFlash, false);
+
+</script>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha2/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
